@@ -1,5 +1,5 @@
 
-package expert.os.sample.cdi;
+package com.acme;
 
 import java.util.concurrent.atomic.AtomicReference;
 

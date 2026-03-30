@@ -1,5 +1,5 @@
 
-package expert.os.sample.cdi;
+package com.acme;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;

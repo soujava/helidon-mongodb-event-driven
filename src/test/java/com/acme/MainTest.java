@@ -1,5 +1,5 @@
 
-package expert.os.sample.cdi;
+package com.acme;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.client.WebTarget;

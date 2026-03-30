@@ -1,4 +1,4 @@
-package expert.os.sample.cdi;
+package com.acme;
 
 public class Message {
 

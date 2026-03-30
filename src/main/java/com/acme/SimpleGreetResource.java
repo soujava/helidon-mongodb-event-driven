@@ -1,5 +1,5 @@
 
-package expert.os.sample.cdi;
+package com.acme;
 
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Counted;
