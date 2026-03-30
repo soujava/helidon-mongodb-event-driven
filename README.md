@@ -1,0 +1,2 @@
+# helidon-mongodb-cdi-events
+Event-driven Java sample using Helidon, MongoDB, and CDI. Demonstrates synchronous and asynchronous event handling through a payment workflow, separating critical operations like inventory updates from side effects such as notifications and projections—without external message brokers.
