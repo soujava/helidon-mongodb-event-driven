@@ -26,7 +26,7 @@ public class Invoice {
     private BigDecimal totalAmount;
 
     @Column
-    private String status;
+    private InvoiceStatus status;
 
     public Invoice() {
     }
@@ -36,7 +36,7 @@ public class Invoice {
                    int quantity,
                    BigDecimal unitPrice,
                    BigDecimal totalAmount,
-                   String status) {
+                   InvoiceStatus status) {
         this.id = id;
         this.product = product;
         this.quantity = quantity;
