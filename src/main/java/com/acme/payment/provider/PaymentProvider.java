@@ -40,7 +40,7 @@ class PaymentProvider {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        if(counter.getAndDecrement() % 2 == 0) {
+        if(counter.get() % 2 == 0) {
             LOGGER.warning("Payment failed: " + event.payment().getId());
             errorEvent.fire(new PaymentErrorEvent(event.payment()));
         } else {
