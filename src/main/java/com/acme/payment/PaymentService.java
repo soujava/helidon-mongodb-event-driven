@@ -38,7 +38,7 @@ public class PaymentService {
 
         repository.save(payment);
         LOGGER.info("Payment created: " + payment);
-        event.fire(new PaymentRequestedEvent(payment));
+        event.fireAsync(new PaymentRequestedEvent(payment));
         return payment;
     }
 }
