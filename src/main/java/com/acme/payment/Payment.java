@@ -6,6 +6,7 @@ import jakarta.nosql.Entity;
 import jakarta.nosql.Id;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -63,5 +64,28 @@ public class Payment {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Payment payment)) {
+            return false;
+        }
+        return Objects.equals(id, payment.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "id='" + id + '\'' +
+                ", amount=" + amount +
+                ", status=" + status +
+                ", product=" + product +
+                '}';
     }
 }
