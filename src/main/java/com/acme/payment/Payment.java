@@ -1,10 +1,12 @@
 package com.acme.payment;
 
+import com.acme.Product;
 import jakarta.nosql.Column;
 import jakarta.nosql.Entity;
 import jakarta.nosql.Id;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Entity
 public class Payment {
@@ -13,23 +15,53 @@ public class Payment {
     private String id;
 
     @Column
-    private String invoiceId;
-
-    @Column
     private BigDecimal amount;
 
     @Column
     private PaymentStatus status;
 
+    @Column
+    private Product product;
+
     public Payment() {
     }
 
-    public Payment(String id, String invoiceId, BigDecimal amount, PaymentStatus status) {
-        this.id = id;
-        this.invoiceId = invoiceId;
+    public Payment(Product product, BigDecimal amount, PaymentStatus status) {
+        this.id = UUID.randomUUID().toString();
         this.amount = amount;
+        this.status = status;
+        this.product = product;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public PaymentStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(PaymentStatus status) {
         this.status = status;
     }
 
-    // getters/setters
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 }
