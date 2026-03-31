@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 public class PaymentService {
 
     private static final Logger LOGGER = Logger.getLogger(PaymentService.class.getName());
+    private static final Order<Payment> PAYMENT_ORDER = Order.by(Sort.asc("id"));
 
     @Inject
     private PaymentRepository repository;
@@ -49,7 +50,7 @@ public class PaymentService {
 
     public List<Payment> findAll(PageRequest pageRequest) {
         LOGGER.info("Finding all payments, page: " + pageRequest.page());
-        Page<Payment> payments = repository.findAll(pageRequest, Order.by(Sort.asc("id")));
+        Page<Payment> payments = repository.findAll(pageRequest, PAYMENT_ORDER);
         return payments.content();
     }
 }
