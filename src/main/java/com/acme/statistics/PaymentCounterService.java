@@ -1,4 +1,4 @@
-package com.acme.stock;
+package com.acme.statistics;
 
 import com.acme.Product;
 import com.acme.payment.Payment;

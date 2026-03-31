@@ -1,4 +1,4 @@
-package com.acme.stock;
+package com.acme.statistics;
 
 import jakarta.data.repository.BasicRepository;
 import jakarta.data.repository.Repository;
