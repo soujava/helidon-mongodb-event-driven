@@ -6,7 +6,7 @@ import jakarta.nosql.Entity;
 import jakarta.nosql.Id;
 
 @Entity
-public class Stock {
+public class PaymentCounter {
 
     @Id
     private String productCode;
@@ -17,10 +17,10 @@ public class Stock {
     @Column
     private int available;
 
-    public Stock() {
+    public PaymentCounter() {
     }
 
-    public Stock(String productCode, Product product, int available) {
+    public PaymentCounter(String productCode, Product product, int available) {
         this.productCode = productCode;
         this.product = product;
         this.available = available;
