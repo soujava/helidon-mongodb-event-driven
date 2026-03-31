@@ -6,9 +6,12 @@ import jakarta.enterprise.event.Event;
 import jakarta.inject.Inject;
 
 import java.math.BigDecimal;
+import java.util.logging.Logger;
 
 @ApplicationScoped
 public class PaymentService {
+
+    private static final Logger LOGGER = Logger.getLogger(PaymentService.class.getName());
 
     @Inject
     private PaymentRepository repository;
@@ -18,6 +21,7 @@ public class PaymentService {
 
     public Payment create(PaymentRequest request) {
 
+        LOGGER.info("Creating payment for " + request.productCode());
         Product product = new Product(
                 request.productCode(),
                 request.productName()
@@ -33,8 +37,8 @@ public class PaymentService {
         );
 
         repository.save(payment);
+        LOGGER.info("Payment created: " + payment);
         event.fire(new PaymentRequestedEvent(payment));
-
         return payment;
     }
 }
