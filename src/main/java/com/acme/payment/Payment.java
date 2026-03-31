@@ -67,4 +67,12 @@ public class Payment {
                 ", product=" + product +
                 '}';
     }
+
+    public void failed() {
+        this.status = PaymentStatus.FAILED;
+    }
+
+    public void confirmed() {
+        this.status = PaymentStatus.CONFIRMED;
+    }
 }
