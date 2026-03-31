@@ -23,16 +23,18 @@ class PaymentStatusService {
     }
 
     void payed(@Observes PaymentSuccessEvent event) {
-        LOGGER.info("Payment " + event.payment() + " was payed");
+        LOGGER.info("Payment " + event.payment().getId() + " was payed");
         var payment = repository.findById(event.payment().getId()).orElseThrow();
         payment.confirmed();
         repository.save(payment);
+        LOGGER.info("Payment " + payment.getId() + " was confirmed");
     }
 
     void errorOnPayment(@Observes PaymentErrorEvent event) {
-        LOGGER.info("Payment " + event.payment() + " failed");
+        LOGGER.info("Payment " + event.payment().getId() + " failed");
         var payment = repository.findById(event.payment().getId()).orElseThrow();
         payment.failed();
         repository.save(payment);
+        LOGGER.info("Payment " + payment.getId() + " was failed");
     }
 }
