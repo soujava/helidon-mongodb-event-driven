@@ -25,6 +25,4 @@ public class PaymentCounter {
         this.product = product;
         this.available = available;
     }
-
-    // getters/setters
 }
