@@ -1,6 +1,8 @@
 package com.acme.payment;
 
 import com.acme.Product;
+import com.acme.infraestructure.JsonFieldStrategy;
+import jakarta.json.bind.annotation.JsonbVisibility;
 import jakarta.nosql.Column;
 import jakarta.nosql.Entity;
 import jakarta.nosql.Id;
@@ -10,6 +12,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Entity
+@JsonbVisibility(JsonFieldStrategy.class)
 public class Payment {
 
     @Id
@@ -24,10 +27,10 @@ public class Payment {
     @Column
     private Product product;
 
-    public Payment() {
+    Payment() {
     }
 
-    public Payment(Product product, BigDecimal amount, PaymentStatus status) {
+    Payment(Product product, BigDecimal amount, PaymentStatus status) {
         this.id = UUID.randomUUID().toString();
         this.amount = amount;
         this.status = status;
@@ -36,34 +39,6 @@ public class Payment {
 
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    public PaymentStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(PaymentStatus status) {
-        this.status = status;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
     }
 
     @Override

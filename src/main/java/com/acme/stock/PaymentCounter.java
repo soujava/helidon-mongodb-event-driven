@@ -1,11 +1,14 @@
 package com.acme.stock;
 
 import com.acme.Product;
+import com.acme.infraestructure.JsonFieldStrategy;
+import jakarta.json.bind.annotation.JsonbVisibility;
 import jakarta.nosql.Column;
 import jakarta.nosql.Entity;
 import jakarta.nosql.Id;
 
 @Entity
+@JsonbVisibility(JsonFieldStrategy.class)
 public class PaymentCounter {
 
     @Id
@@ -15,40 +18,24 @@ public class PaymentCounter {
     private Product product;
 
     @Column
-    private int available;
+    private int successfulPayments;
+
+    @Column
+    private int failedPayments;
 
     public String getProductCode() {
         return productCode;
-    }
-
-    public void setProductCode(String productCode) {
-        this.productCode = productCode;
     }
 
     public Product getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public int getSuccessfulPayments() {
+        return successfulPayments;
     }
 
-    public int getAvailable() {
-        return available;
+    public int getFailedPayments() {
+        return failedPayments;
     }
-
-    public void setAvailable(int available) {
-        this.available = available;
-    }
-
-    public PaymentCounter() {
-    }
-
-    public PaymentCounter(String productCode, Product product, int available) {
-        this.productCode = productCode;
-        this.product = product;
-        this.available = available;
-    }
-
-
 }
