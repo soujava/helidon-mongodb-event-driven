@@ -34,21 +34,20 @@ class PaymentProvider {
     }
 
     void receivePayment(@ObservesAsync PaymentRequestedEvent event) {
-        LOGGER.info("Processing payment: " + event.payment());
+        LOGGER.info("Processing payment: " + event.payment().getId());
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
         if(counter.getAndDecrement() % 2 == 0) {
-            LOGGER.warning("Payment failed: " + event.payment());
-            successEvent.fire(new PaymentSuccessEvent(event.payment()));
-
-        } else {
-            LOGGER.info("Payment successful: " + event.payment());
+            LOGGER.warning("Payment failed: " + event.payment().getId());
             errorEvent.fire(new PaymentErrorEvent(event.payment()));
+        } else {
+            LOGGER.info("Payment successful: " + event.payment().getId());
+            successEvent.fire(new PaymentSuccessEvent(event.payment()));
         }
-        LOGGER.info("Payment processed: " + event.payment() + " - Confirmation #" + counter.incrementAndGet());
+        LOGGER.info("Payment processed: " + event.payment().getId() + " - Confirmation #" + counter.incrementAndGet());
     }
 
 

@@ -34,7 +34,7 @@ public class PaymentCounterService {
     }
 
     void success(@Observes PaymentSuccessEvent event) {
-        LOGGER.info("Payment successful, incrementing counter");
+        LOGGER.info("Payment successful, incrementing counter: " + event.payment().getId());
         Payment payment = event.payment();
         Product product = payment.getProduct();
         PaymentCounter counter = repository.findById(payment.getProduct().code()).orElseGet(() -> new PaymentCounter(product));
@@ -44,7 +44,7 @@ public class PaymentCounterService {
 
 
     void success(@Observes PaymentErrorEvent event) {
-        LOGGER.info("Payment failed, incrementing counter");
+        LOGGER.info("Payment failed, incrementing counter: " + event.payment().getId());
         Payment payment = event.payment();
         Product product = payment.getProduct();
         PaymentCounter counter = repository.findById(payment.getProduct().code()).orElseGet(() -> new PaymentCounter(product));
