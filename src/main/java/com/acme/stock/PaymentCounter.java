@@ -17,6 +17,30 @@ public class PaymentCounter {
     @Column
     private int available;
 
+    public String getProductCode() {
+        return productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public int getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(int available) {
+        this.available = available;
+    }
+
     public PaymentCounter() {
     }
 
@@ -25,4 +49,6 @@ public class PaymentCounter {
         this.product = product;
         this.available = available;
     }
+
+
 }
