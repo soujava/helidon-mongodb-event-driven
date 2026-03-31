@@ -16,7 +16,7 @@ import java.util.UUID;
 public class Payment {
 
     @Id
-    private String id;
+    private UUID id;
 
     @Column
     private BigDecimal amount;
@@ -31,13 +31,13 @@ public class Payment {
     }
 
     Payment(Product product, BigDecimal amount, PaymentStatus status) {
-        this.id = UUID.randomUUID().toString();
+        this.id = UUID.randomUUID();
         this.amount = amount;
         this.status = status;
         this.product = product;
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -52,6 +52,10 @@ public class Payment {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
+    }
+
+    public Product getProduct() {
+        return product;
     }
 
     @Override

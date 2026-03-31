@@ -7,35 +7,37 @@ import jakarta.nosql.Column;
 import jakarta.nosql.Entity;
 import jakarta.nosql.Id;
 
+import java.util.UUID;
+
 @Entity
 @JsonbVisibility(JsonFieldStrategy.class)
 public class PaymentCounter {
 
     @Id
-    private String productCode;
+    private UUID productCode;
 
     @Column
     private Product product;
 
     @Column
-    private int successfulPayments;
+    int successfulPayments;
 
     @Column
-    private int failedPayments;
+    int failedPayments;
 
-    public String getProductCode() {
-        return productCode;
+    PaymentCounter(Product product) {
+        this.productCode = product.code();
+        this.product = product;
     }
 
-    public Product getProduct() {
-        return product;
+    PaymentCounter() {
     }
 
-    public int getSuccessfulPayments() {
-        return successfulPayments;
+    public void failedPayments() {
+        this.failedPayments++;
     }
 
-    public int getFailedPayments() {
-        return failedPayments;
+    public void successfulPayments() {
+        this.successfulPayments++;
     }
 }
