@@ -1,4 +1,4 @@
-package com.acme.payment.provider;
+package com.acme.payment.statistics;
 
 import com.acme.payment.PaymentErrorEvent;
 import com.acme.payment.PaymentRequestedEvent;

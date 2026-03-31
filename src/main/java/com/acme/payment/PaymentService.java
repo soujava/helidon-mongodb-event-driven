@@ -1,11 +1,16 @@
 package com.acme.payment;
 
 import com.acme.Product;
+import jakarta.data.Order;
+import jakarta.data.Sort;
+import jakarta.data.page.Page;
+import jakarta.data.page.PageRequest;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Event;
 import jakarta.inject.Inject;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.logging.Logger;
 
 @ApplicationScoped
@@ -40,5 +45,11 @@ public class PaymentService {
         LOGGER.info("Payment created: " + payment);
         event.fireAsync(new PaymentRequestedEvent(payment));
         return payment;
+    }
+
+    public List<Payment> findAll(PageRequest pageRequest) {
+        LOGGER.info("Finding all payments, page: " + pageRequest.page());
+        Page<Payment> payments = repository.findAll(pageRequest, Order.by(Sort.asc("id")));
+        return payments.content();
     }
 }
