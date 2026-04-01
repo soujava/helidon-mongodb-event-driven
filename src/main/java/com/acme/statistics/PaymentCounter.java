@@ -31,11 +31,11 @@ public class PaymentCounter {
     PaymentCounter() {
     }
 
-    public void failedPayments() {
+    public void paymentFailed() {
         this.failedPayments++;
     }
 
-    public void successfulPayments() {
+    public void paymentSucceeded() {
         this.successfulPayments++;
     }
 }

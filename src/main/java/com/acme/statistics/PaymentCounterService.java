@@ -38,7 +38,7 @@ public class PaymentCounterService {
         Payment payment = event.payment();
         Product product = payment.getProduct();
         PaymentCounter counter = repository.findById(payment.getProduct().code()).orElseGet(() -> new PaymentCounter(product));
-        counter.successfulPayments();
+        counter.paymentSucceeded();
         repository.save(counter);
     }
 
@@ -48,7 +48,7 @@ public class PaymentCounterService {
         Payment payment = event.payment();
         Product product = payment.getProduct();
         PaymentCounter counter = repository.findById(payment.getProduct().code()).orElseGet(() -> new PaymentCounter(product));
-        counter.failedPayments();
+        counter.paymentFailed();
         repository.save(counter);
     }
 
