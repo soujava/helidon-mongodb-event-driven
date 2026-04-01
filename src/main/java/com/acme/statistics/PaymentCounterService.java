@@ -2,8 +2,8 @@ package com.acme.statistics;
 
 import com.acme.Product;
 import com.acme.payment.Payment;
-import com.acme.payment.PaymentErrorEvent;
-import com.acme.payment.PaymentSuccessEvent;
+import com.acme.payment.PaymentFailedEvent;
+import com.acme.payment.PaymentConfirmedEvent;
 import jakarta.data.Order;
 import jakarta.data.Sort;
 import jakarta.data.page.Page;
@@ -33,7 +33,7 @@ public class PaymentCounterService {
         this.repository = null;
     }
 
-    void success(@Observes PaymentSuccessEvent event) {
+    void success(@Observes PaymentConfirmedEvent event) {
         LOGGER.info("Payment successful, incrementing counter: " + event.payment().getId());
         Payment payment = event.payment();
         Product product = payment.getProduct();
@@ -43,7 +43,7 @@ public class PaymentCounterService {
     }
 
 
-    void success(@Observes PaymentErrorEvent event) {
+    void success(@Observes PaymentFailedEvent event) {
         LOGGER.info("Payment failed, incrementing counter: " + event.payment().getId());
         Payment payment = event.payment();
         Product product = payment.getProduct();

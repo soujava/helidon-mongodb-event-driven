@@ -1,8 +1,8 @@
 package com.acme.payment.provider;
 
-import com.acme.payment.PaymentErrorEvent;
+import com.acme.payment.PaymentFailedEvent;
 import com.acme.payment.PaymentRequestedEvent;
-import com.acme.payment.PaymentSuccessEvent;
+import com.acme.payment.PaymentConfirmedEvent;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Event;
 import jakarta.enterprise.event.ObservesAsync;
@@ -18,12 +18,12 @@ class PaymentProvider {
 
     private final AtomicLong counter = new AtomicLong();
 
-    private final Event<PaymentSuccessEvent> successEvent;
+    private final Event<PaymentConfirmedEvent> successEvent;
 
-    private final Event<PaymentErrorEvent> errorEvent;
+    private final Event<PaymentFailedEvent> errorEvent;
 
     @Inject
-    PaymentProvider(Event<PaymentSuccessEvent> successEvent, Event<PaymentErrorEvent> errorEvent) {
+    PaymentProvider(Event<PaymentConfirmedEvent> successEvent, Event<PaymentFailedEvent> errorEvent) {
         this.successEvent = successEvent;
         this.errorEvent = errorEvent;
     }
@@ -42,10 +42,10 @@ class PaymentProvider {
         }
         if(counter.get() % 2 == 0) {
             LOGGER.warning("Payment failed: " + event.payment().getId());
-            errorEvent.fire(new PaymentErrorEvent(event.payment()));
+            errorEvent.fire(new PaymentFailedEvent(event.payment()));
         } else {
             LOGGER.info("Payment successful: " + event.payment().getId());
-            successEvent.fire(new PaymentSuccessEvent(event.payment()));
+            successEvent.fire(new PaymentConfirmedEvent(event.payment()));
         }
         LOGGER.info("Payment processed: " + event.payment().getId() + " - Confirmation #" + counter.incrementAndGet());
     }

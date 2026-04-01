@@ -22,7 +22,7 @@ class PaymentStatusService {
         this.repository = null;
     }
 
-    void payed(@Observes PaymentSuccessEvent event) {
+    void payed(@Observes PaymentConfirmedEvent event) {
         LOGGER.info("Payment " + event.payment().getId() + " was payed");
         var payment = repository.findById(event.payment().getId()).orElseThrow();
         payment.confirmed();
@@ -30,7 +30,7 @@ class PaymentStatusService {
         LOGGER.info("Payment " + payment.getId() + " was confirmed");
     }
 
-    void errorOnPayment(@Observes PaymentErrorEvent event) {
+    void errorOnPayment(@Observes PaymentFailedEvent event) {
         LOGGER.info("Payment " + event.payment().getId() + " failed");
         var payment = repository.findById(event.payment().getId()).orElseThrow();
         payment.failed();
