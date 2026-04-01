@@ -49,6 +49,4 @@ class PaymentProvider {
         }
         LOGGER.info("Payment processed: " + event.payment().getId() + " - Confirmation #" + counter.incrementAndGet());
     }
-
-
 }
