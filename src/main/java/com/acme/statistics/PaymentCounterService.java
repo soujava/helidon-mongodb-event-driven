@@ -13,6 +13,7 @@ import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 @ApplicationScoped
@@ -35,20 +36,20 @@ public class PaymentCounterService {
 
     void success(@Observes PaymentConfirmedEvent event) {
         LOGGER.info("Payment successful, incrementing counter: " + event.payment().getId());
-        Payment payment = event.payment();
-        Product product = payment.getProduct();
-        PaymentCounter counter = repository.findById(payment.getProduct().code()).orElseGet(() -> new PaymentCounter(product));
-        counter.paymentSucceeded();
-        repository.save(counter);
+        execute(PaymentCounter::paymentSucceeded, event.payment().getProduct());
     }
 
 
     void success(@Observes PaymentFailedEvent event) {
         LOGGER.info("Payment failed, incrementing counter: " + event.payment().getId());
-        Payment payment = event.payment();
-        Product product = payment.getProduct();
-        PaymentCounter counter = repository.findById(payment.getProduct().code()).orElseGet(() -> new PaymentCounter(product));
-        counter.paymentFailed();
+        execute(PaymentCounter::paymentFailed, event.payment().getProduct());
+    }
+
+    void execute(Consumer<PaymentCounter> action, Product product) {
+        PaymentCounter counter = repository.findById(product.code()).orElseGet(() -> new PaymentCounter(product));
+        LOGGER.info("Counter found: " + counter);
+        action.accept(counter);
+        LOGGER.info("Counter incremented: " + counter);
         repository.save(counter);
     }
 
